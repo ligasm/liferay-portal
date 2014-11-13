@@ -814,39 +814,13 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUserAdvancedUsingDB() throws Exception {
+		public void shouldFindAllUsersAdvancedUsingDB() throws Exception {
 			OrderByComparator<User> sort = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, null, true,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
-
-			Assert.assertNotNull(users);
-			Assert.assertEquals(13, users.size());
-		}
-
-		@Test
-		public void shouldFindAllUserUsingIndex() throws Exception {
-			Sort sort = null;
-
-			Hits users = UserLocalServiceUtil.search(
-				TestPropsValues.getCompanyId(), null, null, null, null, null,
-				WorkflowConstants.STATUS_APPROVED, null, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
-
-			Assert.assertNotNull(users);
-			Assert.assertEquals(13, users.getLength());
-		}
-
-		@Test
-		public void shouldFindAllUserKeywordUsingDB() throws Exception {
-			OrderByComparator<User> sort = null;
-
-			List<User> users = UserLocalServiceUtil.search(
-				TestPropsValues.getCompanyId(), null,
-				WorkflowConstants.STATUS_APPROVED, null, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.size());
@@ -971,6 +945,32 @@ public class UserServiceTest {
 			Assert.assertEquals(10, users.size());
 			Assert.assertEquals(
 				_user.getScreenName(), users.get(1).getScreenName());
+		}
+
+		@Test
+		public void shouldFindAllUsersKeywordUsingDB() throws Exception {
+			OrderByComparator<User> sort = null;
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, null, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(13, users.size());
+		}
+
+		@Test
+		public void shouldFindAllUsersUsingIndex() throws Exception {
+			Sort sort = null;
+
+			Hits users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, null, true,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(13, users.getLength());
 		}
 
 		@Test
