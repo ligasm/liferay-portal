@@ -706,7 +706,7 @@ public class UserServiceTest {
 			ResetDatabaseExecutionTestListener.class
 		})
 	@RunWith(LiferayIntegrationJUnitTestRunner.class)
-	public static class WhenSearchingForUser {
+	public static class WhenSearchingUsers {
 
 		@Before
 		public void setUp() throws Exception {
