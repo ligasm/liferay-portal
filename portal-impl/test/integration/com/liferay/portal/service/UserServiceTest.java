@@ -815,12 +815,12 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersAdvancedUsingDB() throws Exception {
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, null, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.size());
@@ -834,12 +834,12 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(9, users.size());
@@ -851,11 +851,12 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
+
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(9, users.size());
@@ -870,12 +871,12 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -891,12 +892,13 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> sort = new UserScreenNameComparator(false);
+			OrderByComparator<User> orderByComparator =
+				new UserScreenNameComparator(false);
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -913,12 +915,12 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -934,12 +936,13 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> sort = new UserScreenNameComparator(false);
+			OrderByComparator<User> orderByComparator =
+				new UserScreenNameComparator(false);
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -949,12 +952,12 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersKeywordUsingDB() throws Exception {
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, null, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.size());
@@ -979,12 +982,12 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), _user.getEmailAddress(),
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(1, users.size());
@@ -998,13 +1001,13 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null,
 				_user.getScreenName(), _user.getEmailAddress(),
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(1, users.size());
@@ -1014,12 +1017,13 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindUserUsingDB() throws Exception {
-			OrderByComparator<User> sort = null;
+			OrderByComparator<User> orderByComparator = null;
 
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null,
 				_user.getScreenName(), null, WorkflowConstants.STATUS_APPROVED,
-				null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				orderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertFalse(users.isEmpty());
