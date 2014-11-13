@@ -743,7 +743,9 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersByGroupAdvancedDB() throws Exception {
+		public void shouldCountAllUsersByGroupAdvancedUsingIndex()
+			throws Exception {
+
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -756,7 +758,9 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersByGroupKeywordDB() throws Exception {
+		public void shouldCountAllUsersByGroupKeywordUsingIndex()
+			throws Exception {
+
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -769,7 +773,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersByGroupWithRelationsAdvancedDB()
+		public void shouldCountAllUsersByGroupWithRelationsAdvancedUsingIndex()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -785,7 +789,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersByGroupWithRelationsKeywordDB()
+		public void shouldCountAllUsersByGroupWithRelationsKeywordUsingIndex()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -801,7 +805,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountUsers() throws Exception {
+		public void shouldCountUsersUsingIndex() throws Exception {
 			int count = UserLocalServiceUtil.searchCount(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, null, true);
@@ -810,7 +814,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUserAdvancedDB() throws Exception {
+		public void shouldFindAllUserAdvancedUsingDB() throws Exception {
 			OrderByComparator<User> sort = null;
 
 			List<User> users = UserLocalServiceUtil.search(
@@ -823,7 +827,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUserIndex() throws Exception {
+		public void shouldFindAllUserUsingIndex() throws Exception {
 			Sort sort = null;
 
 			Hits users = UserLocalServiceUtil.search(
@@ -836,7 +840,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUserKeywordDB() throws Exception {
+		public void shouldFindAllUserKeywordUsingDB() throws Exception {
 			OrderByComparator<User> sort = null;
 
 			List<User> users = UserLocalServiceUtil.search(
@@ -849,7 +853,9 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupAdvancedDB() throws Exception {
+		public void shouldFindAllUsersByGroupAdvancedUsingDB()
+			throws Exception {
+
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -866,7 +872,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupKeywordDB() throws Exception {
+		public void shouldFindAllUsersByGroupKeywordUsingDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -882,7 +888,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsAdvancedDB()
+		public void shouldFindAllUsersByGroupWithRelationsAdvancedUsingDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -902,7 +908,8 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsAdvancedOrderedDB()
+		public void
+				shouldFindAllUsersByGroupWithRelationsAdvancedOrderedUsingDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -924,7 +931,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsKeywordDB()
+		public void shouldFindAllUsersByGroupWithRelationsKeywordUsingDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -944,7 +951,8 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsKeywordOrderedDB()
+		public void
+				shouldFindAllUsersByGroupWithRelationsKeywordOrderedUsingDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -966,7 +974,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserByKeywordFromGroupDB() throws Exception {
+		public void shouldFindUserByKeywordFromGroupUsingDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -985,7 +993,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserByParamsFromGroupDB() throws Exception {
+		public void shouldFindUserByParamsFromGroupUsingDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -1005,7 +1013,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserDB() throws Exception {
+		public void shouldFindUserUsingDB() throws Exception {
 			OrderByComparator<User> sort = null;
 
 			List<User> users = UserLocalServiceUtil.search(
@@ -1021,7 +1029,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserIndex() throws Exception {
+		public void shouldFindUserUsingIndex() throws Exception {
 			Sort sort = null;
 
 			Hits users = UserLocalServiceUtil.search(
