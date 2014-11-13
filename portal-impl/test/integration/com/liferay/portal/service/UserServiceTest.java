@@ -815,12 +815,10 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersAdvancedUsingDB() throws Exception {
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, null, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.size());
@@ -834,12 +832,10 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(9, users.size());
@@ -851,12 +847,10 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(9, users.size());
@@ -871,12 +865,10 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -915,12 +907,10 @@ public class UserServiceTest {
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(10, users.size());
@@ -952,12 +942,10 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersKeywordUsingDB() throws Exception {
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, null, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.size());
@@ -965,12 +953,10 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersUsingIndex() throws Exception {
-			Sort sort = null;
-
 			Hits users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, null, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullSort);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(13, users.getLength());
@@ -982,12 +968,10 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), _user.getEmailAddress(),
 				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(1, users.size());
@@ -1001,13 +985,11 @@ public class UserServiceTest {
 
 			params.put("usersGroups", _group.getGroupId());
 
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null,
 				_user.getScreenName(), _user.getEmailAddress(),
 				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(1, users.size());
@@ -1017,13 +999,11 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindUserUsingDB() throws Exception {
-			OrderByComparator<User> orderByComparator = null;
-
 			List<User> users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null,
 				_user.getScreenName(), null, WorkflowConstants.STATUS_APPROVED,
 				null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-				orderByComparator);
+				_nullOrderByComparator);
 
 			Assert.assertNotNull(users);
 			Assert.assertFalse(users.isEmpty());
@@ -1034,12 +1014,10 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindUserUsingIndex() throws Exception {
-			Sort sort = null;
-
 			Hits users = UserLocalServiceUtil.search(
 				TestPropsValues.getCompanyId(), null, null, null,
 				_user.getScreenName(), null, WorkflowConstants.STATUS_APPROVED,
-				null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, _nullSort);
 
 			Assert.assertNotNull(users);
 			Assert.assertNotEquals(users.getLength(), 0);
@@ -1052,6 +1030,8 @@ public class UserServiceTest {
 		}
 
 		private Group _group;
+		private OrderByComparator<User> _nullOrderByComparator = null;
+		private Sort _nullSort = null;
 		private User _user;
 
 	}
