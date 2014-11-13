@@ -743,7 +743,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersFromGroupAdvancedDB() throws Exception {
+		public void shouldCountAllUsersByGroupAdvancedDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -756,7 +756,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersFromGroupKeywordDB() throws Exception {
+		public void shouldCountAllUsersByGroupKeywordDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -769,7 +769,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersFromGroupWithRelationsAdvancedDB()
+		public void shouldCountAllUsersByGroupWithRelationsAdvancedDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -785,7 +785,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldCountAllUsersFromGroupWithRelationsKeywordDB()
+		public void shouldCountAllUsersByGroupWithRelationsKeywordDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -849,7 +849,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupAdvancedDB() throws Exception {
+		public void shouldFindAllUsersByGroupAdvancedDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -866,7 +866,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupKeywordDB() throws Exception {
+		public void shouldFindAllUsersByGroupKeywordDB() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -882,7 +882,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupWithRelationsAdvancedDB()
+		public void shouldFindAllUsersByGroupWithRelationsAdvancedDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -902,7 +902,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupWithRelationsAdvancedOrderedDB()
+		public void shouldFindAllUsersByGroupWithRelationsAdvancedOrderedDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -924,7 +924,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupWithRelationsKeywordDB()
+		public void shouldFindAllUsersByGroupWithRelationsKeywordDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -944,7 +944,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersFromGroupWithRelationsKeywordOrderedDB()
+		public void shouldFindAllUsersByGroupWithRelationsKeywordOrderedDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
