@@ -741,13 +741,13 @@ public class UserServiceTest {
 
 	}
 
-	@ExecutionTestListeners(
-		listeners = {
-			MainServletExecutionTestListener.class,
-			ResetDatabaseExecutionTestListener.class
-		})
 	@RunWith(LiferayIntegrationJUnitTestRunner.class)
 	public static class WhenSearchingUsers {
+
+		@ClassRule
+		public static final AggregateTestRule aggregateTestRule =
+			new AggregateTestRule(
+				MainServletTestRule.INSTANCE, ResetDatabaseTestRule.INSTANCE);
 
 		@Before
 		public void setUp() throws Exception {
