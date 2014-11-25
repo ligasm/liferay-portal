@@ -756,7 +756,9 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS);
 
 			for (User companyUser : companyUsers) {
-				if (!companyUser.isDefaultUser()) _totalUsersCount++;
+				if (!companyUser.isDefaultUser()) {
+					_totalUsersCount++;
+				}
 			}
 
 			_group = GroupTestUtil.addGroup("Parent group");
@@ -1095,6 +1097,7 @@ public class UserServiceTest {
 			Assert.assertNotEquals(users.getLength(), 0);
 
 			Document doc = users.doc(0);
+
 			long userId = GetterUtil.getLong(
 				doc.get(com.liferay.portal.kernel.search.Field.USER_ID));
 
