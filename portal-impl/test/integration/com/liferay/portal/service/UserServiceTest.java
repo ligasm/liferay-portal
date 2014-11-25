@@ -795,7 +795,7 @@ public class UserServiceTest {
 				OrganizationLocalServiceUtil.addOrganization(
 					user.getUserId(),
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
-					"Test Organization", false);
+					RandomTestUtil.randomString(), false);
 
 			GroupLocalServiceUtil.addOrganizationGroup(
 				organization.getOrganizationId(), _group);
