@@ -756,8 +756,7 @@ public class UserServiceTest {
 					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 			for (User companyUser : companyUsers) {
-				if(!companyUser.isDefaultUser())
-					_totalUsersCount++;
+				if (!companyUser.isDefaultUser()) _totalUsersCount++;
 			}
 
 			_group = GroupTestUtil.addGroup("Parent group");
@@ -768,14 +767,12 @@ public class UserServiceTest {
 				_totalUsersCount++;
 			}
 
-
 			User user = UserTestUtil.addUser("child1", false, null);
 
 			_totalUsersCount++;
 
 			GroupTestUtil.addGroup(TestPropsValues.getCompanyId(),
 				user.getUserId(), _group.getGroupId(), "Child group", null);
-
 
 			UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 				_group.getGroupId());
@@ -786,7 +783,6 @@ public class UserServiceTest {
 
 			UserGroupLocalServiceUtil.addUserUserGroup(
 				user.getUserId(), userGroup);
-
 
 			user = UserTestUtil.addUser("Organization", false, null);
 
@@ -925,25 +921,6 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsAdvancedUsingDB()
-			throws Exception {
-
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
-
-			params.put("usersGroups", _group.getGroupId());
-			params.put("inherit", Boolean.TRUE);
-
-			List<User> users = UserLocalServiceUtil.search(
-				TestPropsValues.getCompanyId(), null, null, null, null, null,
-				WorkflowConstants.STATUS_APPROVED, params, true,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
-
-			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
-		}
-
-		@Test
 		public void
 				shouldFindAllUsersByGroupWithRelationsAdvancedOrderedUsingDB()
 			throws Exception {
@@ -969,7 +946,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindAllUsersByGroupWithRelationsKeywordUsingDB()
+		public void shouldFindAllUsersByGroupWithRelationsAdvancedUsingDB()
 			throws Exception {
 
 			LinkedHashMap<String, Object> params =
@@ -979,9 +956,9 @@ public class UserServiceTest {
 			params.put("inherit", Boolean.TRUE);
 
 			List<User> users = UserLocalServiceUtil.search(
-				TestPropsValues.getCompanyId(), null,
-				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
-				QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
+				TestPropsValues.getCompanyId(), null, null, null, null, null,
+				WorkflowConstants.STATUS_APPROVED, params, true,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
 
 			Assert.assertNotNull(users);
 			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
@@ -1010,6 +987,25 @@ public class UserServiceTest {
 			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
 			Assert.assertEquals(
 				_user.getScreenName(), users.get(1).getScreenName());
+		}
+
+		@Test
+		public void shouldFindAllUsersByGroupWithRelationsKeywordUsingDB()
+			throws Exception {
+
+			LinkedHashMap<String, Object> params =
+				new LinkedHashMap<String, Object>();
+
+			params.put("usersGroups", _group.getGroupId());
+			params.put("inherit", Boolean.TRUE);
+
+			List<User> users = UserLocalServiceUtil.search(
+				TestPropsValues.getCompanyId(), null,
+				WorkflowConstants.STATUS_APPROVED, params, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
+
+			Assert.assertNotNull(users);
+			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
 		}
 
 		@Test
@@ -1103,13 +1099,16 @@ public class UserServiceTest {
 			Assert.assertEquals(_user.getUserId(), userId);
 		}
 
-		private Group _group;
-		private User _user;
-		private int _totalUsersCount;
-		private static int PARENT_USERS_COUNT = 7;
-		private static final Sort NULL_SORT = null;
 		private static final OrderByComparator<User> NULL_ORDER_BY_COMPARATOR =
 			null;
+
+		private static final Sort NULL_SORT = null;
+
+		private static int PARENT_USERS_COUNT = 7;
+
+		private Group _group;
+		private int _totalUsersCount;
+		private User _user;
 
 	}
 
