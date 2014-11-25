@@ -751,9 +751,9 @@ public class UserServiceTest {
 
 		@Before
 		public void setUp() throws Exception {
-			List<User> companyUsers = UserLocalServiceUtil
-				.getCompanyUsers(TestPropsValues.getCompanyId(),
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			List<User> companyUsers = UserLocalServiceUtil.getCompanyUsers(
+				TestPropsValues.getCompanyId(), QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS);
 
 			for (User companyUser : companyUsers) {
 				if (!companyUser.isDefaultUser()) _totalUsersCount++;
@@ -771,8 +771,9 @@ public class UserServiceTest {
 
 			_totalUsersCount++;
 
-			GroupTestUtil.addGroup(TestPropsValues.getCompanyId(),
-				user.getUserId(), _group.getGroupId(), "Child group", null);
+			GroupTestUtil.addGroup(
+				TestPropsValues.getCompanyId(), user.getUserId(),
+				_group.getGroupId(), "Child group", null);
 
 			UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 				_group.getGroupId());
@@ -788,8 +789,9 @@ public class UserServiceTest {
 
 			_totalUsersCount++;
 
-			Organization organization = OrganizationLocalServiceUtil
-				.addOrganization(user.getUserId(),
+			Organization organization =
+				OrganizationLocalServiceUtil.addOrganization(
+					user.getUserId(),
 					OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
 					"Test Organization", false);
 
