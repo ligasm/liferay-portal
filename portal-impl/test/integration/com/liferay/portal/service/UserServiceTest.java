@@ -973,8 +973,7 @@ public class UserServiceTest {
 		public void shouldCountAllUsersByGroupAdvancedUsingIndex()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
@@ -989,8 +988,7 @@ public class UserServiceTest {
 		public void shouldCountAllUsersByGroupKeywordUsingIndex()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
@@ -1005,8 +1003,7 @@ public class UserServiceTest {
 		public void shouldCountAllUsersByGroupWithRelationsAdvancedUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1022,8 +1019,7 @@ public class UserServiceTest {
 		public void shouldCountAllUsersByGroupWithRelationsKeywordUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1060,8 +1056,7 @@ public class UserServiceTest {
 		public void shouldFindAllUsersByGroupAdvancedUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
@@ -1077,8 +1072,7 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindAllUsersByGroupKeywordUsingDB() throws Exception {
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
@@ -1096,8 +1090,7 @@ public class UserServiceTest {
 				shouldFindAllUsersByGroupWithRelationsAdvancedOrderedUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1120,8 +1113,7 @@ public class UserServiceTest {
 		public void shouldFindAllUsersByGroupWithRelationsAdvancedUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1141,8 +1133,7 @@ public class UserServiceTest {
 				shouldFindAllUsersByGroupWithRelationsKeywordOrderedUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1165,8 +1156,7 @@ public class UserServiceTest {
 		public void shouldFindAllUsersByGroupWithRelationsKeywordUsingDB()
 			throws Exception {
 
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 			params.put("inherit", Boolean.TRUE);
@@ -1204,8 +1194,7 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindUserByKeywordFromGroupUsingDB() throws Exception {
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
@@ -1222,8 +1211,7 @@ public class UserServiceTest {
 
 		@Test
 		public void shouldFindUserByParamsFromGroupUsingDB() throws Exception {
-			LinkedHashMap<String, Object> params =
-				new LinkedHashMap<String, Object>();
+			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
 
