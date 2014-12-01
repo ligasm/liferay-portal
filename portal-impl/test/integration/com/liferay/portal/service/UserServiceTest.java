@@ -928,7 +928,7 @@ public class UserServiceTest {
 
 			_group = GroupTestUtil.addGroup();
 
-			for (int i = 0; i < (PARENT_USERS_COUNT - 1); i++) {
+			for (int i = 0; i < (_PARENT_USERS_COUNT - 1); i++) {
 				_user = UserTestUtil.addUser("parent" + i, _group.getGroupId());
 
 				_totalUsersCount++;
@@ -982,7 +982,7 @@ public class UserServiceTest {
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true);
 
-			Assert.assertEquals(PARENT_USERS_COUNT, usersCount);
+			Assert.assertEquals(_PARENT_USERS_COUNT, usersCount);
 		}
 
 		@Test
@@ -998,7 +998,7 @@ public class UserServiceTest {
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params);
 
-			Assert.assertEquals(PARENT_USERS_COUNT, usersCount);
+			Assert.assertEquals(_PARENT_USERS_COUNT, usersCount);
 		}
 
 		@Test
@@ -1015,7 +1015,7 @@ public class UserServiceTest {
 				TestPropsValues.getCompanyId(), null, null, null, null, null,
 				WorkflowConstants.STATUS_APPROVED, params, true);
 
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, usersCount);
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, usersCount);
 		}
 
 		@Test
@@ -1032,7 +1032,7 @@ public class UserServiceTest {
 				TestPropsValues.getCompanyId(), null,
 				WorkflowConstants.STATUS_APPROVED, params);
 
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, usersCount);
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, usersCount);
 		}
 
 		@Test
@@ -1070,7 +1070,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT, users.size());
 		}
 
 		@Test
@@ -1086,7 +1086,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT, users.size());
 		}
 
 		@Test
@@ -1109,7 +1109,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, users.size());
 			Assert.assertEquals(
 				_user.getScreenName(), users.get(1).getScreenName());
 		}
@@ -1130,7 +1130,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, users.size());
 		}
 
 		@Test
@@ -1153,7 +1153,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, orderByComparator);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, users.size());
 			Assert.assertEquals(
 				_user.getScreenName(), users.get(1).getScreenName());
 		}
@@ -1174,7 +1174,7 @@ public class UserServiceTest {
 				QueryUtil.ALL_POS, NULL_ORDER_BY_COMPARATOR);
 
 			Assert.assertNotNull(users);
-			Assert.assertEquals(PARENT_USERS_COUNT + 1, users.size());
+			Assert.assertEquals(_PARENT_USERS_COUNT + 1, users.size());
 		}
 
 		@Test
@@ -1269,12 +1269,12 @@ public class UserServiceTest {
 			Assert.assertEquals(_user.getUserId(), userId);
 		}
 
+		private static final int _PARENT_USERS_COUNT = 7;
+
 		private static final OrderByComparator<User> NULL_ORDER_BY_COMPARATOR =
 			null;
 
 		private static final Sort NULL_SORT = null;
-
-		private static final int PARENT_USERS_COUNT = 7;
 
 		private static Group _group;
 		private static int _totalUsersCount;
