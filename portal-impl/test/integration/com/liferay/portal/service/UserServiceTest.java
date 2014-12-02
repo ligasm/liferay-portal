@@ -922,7 +922,8 @@ public class UserServiceTest {
 				_user = UserTestUtil.addUser("parent" + i, _group.getGroupId());
 			}
 
-			User user = UserTestUtil.addUser("child1", false, null);
+			User user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			GroupTestUtil.addGroup(
 				TestPropsValues.getCompanyId(), user.getUserId(),
@@ -931,12 +932,14 @@ public class UserServiceTest {
 			UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 				_group.getGroupId());
 
-			user = UserTestUtil.addUser("UserGroup", false, null);
+			user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			UserGroupLocalServiceUtil.addUserUserGroup(
 				user.getUserId(), userGroup);
 
-			user = UserTestUtil.addUser("Organization", false, null);
+			user = UserTestUtil.addUser(
+				RandomTestUtil.randomString(), false, null);
 
 			Organization organization =
 				OrganizationLocalServiceUtil.addOrganization(
