@@ -5982,6 +5982,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	protected Sort[] getSorts(OrderByComparator<User> obc) {
+		if (obc == null) {
+			return new Sort[0];
+		}
+
 		String[] orderByClauses = StringUtil.split(obc.getOrderBy());
 		String[] orderByFields = obc.getOrderByFields();
 
