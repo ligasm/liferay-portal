@@ -16,8 +16,8 @@ package com.liferay.portal.service;
 
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.ReservedUserEmailAddressException;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
@@ -51,8 +50,6 @@ import com.liferay.portal.util.test.RandomTestUtil;
 import com.liferay.portal.util.test.TestPropsValues;
 import com.liferay.portal.util.test.UserGroupTestUtil;
 import com.liferay.portal.util.test.UserTestUtil;
-
-import java.lang.reflect.Field;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1252,12 +1249,12 @@ public class UserServiceTest {
 			Assert.assertEquals(_user.getUserId(), userId);
 		}
 
-		private static final int _PARENT_USERS_COUNT = 7;
-
 		private static final OrderByComparator<User> _NULL_ORDER_BY_COMPARATOR =
 			null;
 
 		private static final Sort _NULL_SORT = null;
+
+		private static final int _PARENT_USERS_COUNT = 7;
 
 		private static Group _group;
 		private static int _totalUsersCount;
