@@ -3083,6 +3083,11 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		long companyId, String keywords, int status,
 		LinkedHashMap<String, Object> params, int start, int end, Sort sort) {
 
+		if (sort == null) {
+			return search(
+				companyId, keywords, status, params, start, end, new Sort[0]);
+		}
+
 		return search(
 			companyId, keywords, status, params, start, end, new Sort[] {sort});
 	}
@@ -3253,6 +3258,13 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		String screenName, String emailAddress, int status,
 		LinkedHashMap<String, Object> params, boolean andSearch, int start,
 		int end, Sort sort) {
+
+		if (sort == null) {
+			return search(
+				companyId, firstName, middleName, lastName, screenName,
+				emailAddress, status, params, andSearch, start, end,
+				new Sort[0]);
+		}
 
 		return search(
 			companyId, firstName, middleName, lastName, screenName,
