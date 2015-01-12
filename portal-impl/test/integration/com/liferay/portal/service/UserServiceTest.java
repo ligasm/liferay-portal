@@ -1181,7 +1181,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserByKeywordFromGroupUsingDB() throws Exception {
+		public void shouldFindUserByKeywordFromGroupIndex() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
@@ -1198,7 +1198,7 @@ public class UserServiceTest {
 		}
 
 		@Test
-		public void shouldFindUserByParamsFromGroupUsingDB() throws Exception {
+		public void shouldFindUserByParamsFromGroupIndex() throws Exception {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 			params.put("usersGroups", _group.getGroupId());
