@@ -52,6 +52,20 @@ public class SoyManagerTest {
 	}
 
 	@Test
+	public void testProcessMultiTemplateAllResources() throws Exception {
+		Template template = _soyManagerTestHelper.getTemplates(
+			Arrays.asList("multi.soy", "simple.soy","context.soy", "multi-context.soy"));
+
+		template.put("namespace", "soy.multiTest.simple");
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		template.processTemplate(unsyncStringWriter);
+
+		Assert.assertEquals("Hello.", unsyncStringWriter.toString());
+	}
+
+	@Test
 	public void testProcessMultiTemplateSimple() throws Exception {
 		Template template = _soyManagerTestHelper.getTemplates(
 			Arrays.asList("multi.soy", "simple.soy"));
