@@ -49,6 +49,8 @@ import org.osgi.framework.FrameworkUtil;
  */
 public class SoyPortlet extends MVCPortlet {
 
+	public static final String SOY_FILE_SUFFIX = "*.soy";
+
 	@Override
 	protected void include(
 			String namespace, PortletRequest portletRequest,
@@ -56,7 +58,7 @@ public class SoyPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		try {
-			String path = "META-INF/resources" + templatePath;
+			String path = templatePath;
 
 			List<TemplateResource> templateResources = _getTemplateResources(
 				path);
@@ -99,7 +101,7 @@ public class SoyPortlet extends MVCPortlet {
 			this.getClass()).getBundleContext();
 
 		Enumeration<URL> urls =
-			context.getBundle().findEntries(path, "*.soy", true);
+			context.getBundle().findEntries(path, SOY_FILE_SUFFIX, true);
 
 		long bundleId = context.getBundle().getBundleId();
 
@@ -120,5 +122,4 @@ public class SoyPortlet extends MVCPortlet {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(SoyPortlet.class);
-
 }
