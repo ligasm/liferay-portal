@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.template.TemplateManager;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.TemplateResourceLoaderUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnsyncPrintWriterPool;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -63,8 +64,10 @@ public class SoyPortlet extends MVCPortlet {
 
 		try {
 
+			String path = "META-INF/resources" + templatePath;
+
 			List<TemplateResource> templateResources =
-				_getTemplateResources(templatePath);
+				_getTemplateResources(path);
 
 			Template template = TemplateManagerUtil.getTemplates(
 				TemplateConstants.LANG_TYPE_SOY, templateResources, false);
@@ -104,7 +107,7 @@ public class SoyPortlet extends MVCPortlet {
 			getBundleContext();
 
 		Enumeration<URL> urls =
-			context.getBundle().findEntries(path, "*", false);
+			context.getBundle().findEntries(path,"*.soy", true);
 
 		long bundleId = context.getBundle().getBundleId();
 
@@ -112,7 +115,7 @@ public class SoyPortlet extends MVCPortlet {
 			URL url = urls.nextElement();
 
 			String templatePath = bundleId +
-				TemplateConstants.LANG_TYPE_SOY +
+				StringPool.DOUBLE_DASH +
 				url.getPath();
 
 			TemplateResource templateResource =

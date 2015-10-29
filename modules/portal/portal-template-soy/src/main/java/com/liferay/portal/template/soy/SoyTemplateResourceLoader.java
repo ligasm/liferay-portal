@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.TemplateResourceLoader;
 import com.liferay.portal.kernel.template.URLTemplateResource;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.template.DefaultTemplateResourceLoader;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -73,10 +74,10 @@ public class SoyTemplateResourceLoader
 
 	@Override
 	public TemplateResource getTemplateResource(String templateId) {
-		String[] split = templateId.split(TemplateConstants.LANG_TYPE_SOY);
+		String[] split = templateId.split(StringPool.DOUBLE_DASH);
 		URL resource = null;
 
-		if (split.length == 0) {
+		if (split.length > 1) {
 			long bundleId = Integer.parseInt(split[0]);
 			String filePath = split[1];
 
