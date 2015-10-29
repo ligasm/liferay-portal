@@ -42,19 +42,10 @@ public class SoyManagerTest {
 		_soyManagerTestHelper.tearDown();
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testProcessMultiTemplateEmptyList() throws Exception {
-		List<String> list = Collections.emptyList();
-
-		Template template = _soyManagerTestHelper.getTemplates(list);
-
-		template.processTemplate(new UnsyncStringWriter());
-	}
-
 	@Test
 	public void testProcessMultiTemplateAllResources() throws Exception {
-		Template template = _soyManagerTestHelper.getTemplates(
-			Arrays.asList("multi.soy", "simple.soy","context.soy", "multi-context.soy"));
+		Template template = _soyManagerTestHelper.getTemplates(Arrays.asList(
+			"multi.soy", "simple.soy", "context.soy", "multi-context.soy"));
 
 		template.put("namespace", "soy.multiTest.simple");
 
@@ -63,6 +54,15 @@ public class SoyManagerTest {
 		template.processTemplate(unsyncStringWriter);
 
 		Assert.assertEquals("Hello.", unsyncStringWriter.toString());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testProcessMultiTemplateEmptyList() throws Exception {
+		List<String> list = Collections.emptyList();
+
+		Template template = _soyManagerTestHelper.getTemplates(list);
+
+		template.processTemplate(new UnsyncStringWriter());
 	}
 
 	@Test

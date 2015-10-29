@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- * <p/>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p/>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -18,14 +18,16 @@ import com.liferay.portal.kernel.cache.MultiVMPool;
 import com.liferay.portal.kernel.cache.SingleVMPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.TemplateConstants;
-import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.TemplateResourceLoader;
 import com.liferay.portal.kernel.template.URLTemplateResource;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.template.DefaultTemplateResourceLoader;
+
+import java.net.URL;
+
+import java.util.Map;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -35,22 +37,14 @@ import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
-import java.net.URL;
-import java.util.Map;
-
 /**
- * @author Igor Spasic
+ * @author Miroslav Ligas
  */
 @Component(
-//	configurationPid = "com.liferay.portal.template.soy.configuration.SoyEngineConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
-	service = {
-		SoyTemplateResourceLoader.class, TemplateResourceLoader.class
-	}
+	service = {SoyTemplateResourceLoader.class, TemplateResourceLoader.class}
 )
-public class SoyTemplateResourceLoader
-	implements TemplateResourceLoader {
-
+public class SoyTemplateResourceLoader implements TemplateResourceLoader {
 
 	@Override
 	public void clearCache() {
@@ -69,7 +63,7 @@ public class SoyTemplateResourceLoader
 
 	@Override
 	public String getName() {
-		return _name;
+		return _NAME;
 	}
 
 	@Override
@@ -85,11 +79,12 @@ public class SoyTemplateResourceLoader
 			resource = bundle.getResource(filePath);
 		}
 
-		if(resource == null){
+		if (resource == null) {
 			_log.error("Unable to load resource " + templateId);
 			return null;
 		}
-		return new URLTemplateResource(templateId,resource);
+
+		return new URLTemplateResource(templateId, resource);
 	}
 
 	@Override
@@ -101,9 +96,7 @@ public class SoyTemplateResourceLoader
 	@Activate
 	@Modified
 	protected void activate(Map<String, Object> properties) {
-		_context = FrameworkUtil.
-			getBundle(this.getClass()).
-			getBundleContext();
+		_context = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
 	}
 
 	@Reference(unbind = "-")
@@ -116,8 +109,11 @@ public class SoyTemplateResourceLoader
 		//TODO
 	}
 
-	private DefaultTemplateResourceLoader _defaultTemplateResourceLoader;
-	private static final Log _log = LogFactoryUtil.getLog(SoyTemplateResourceLoader.class);
-	private String _name = TemplateConstants.LANG_TYPE_SOY;
+	private static final String _NAME = TemplateConstants.LANG_TYPE_SOY;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		SoyTemplateResourceLoader.class);
+
 	private BundleContext _context;
+
 }
