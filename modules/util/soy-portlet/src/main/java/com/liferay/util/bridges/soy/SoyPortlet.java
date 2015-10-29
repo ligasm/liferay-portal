@@ -25,12 +25,10 @@ import com.liferay.portal.kernel.template.TemplateManagerUtil;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.TemplateResourceLoaderUtil;
 import com.liferay.portal.kernel.util.UnsyncPrintWriterPool;
-import com.liferay.portal.util.PortalUtil;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -44,7 +42,7 @@ import java.util.List;
 /**
  * @author Miroslav Ligas
  */
-public class SoyPortlet extends MVCPortlet{
+public class SoyPortlet extends MVCPortlet {
 
 	@Override
 	public void destroy() {
@@ -57,76 +55,39 @@ public class SoyPortlet extends MVCPortlet{
 
 	@Override
 	protected void include(
-		String path, PortletRequest portletRequest,
+		String namespace, PortletRequest portletRequest,
 		PortletResponse portletResponse, String lifecycle)
 		throws IOException, PortletException {
 
-		PortletContext portletContext = getPortletContext();
-
-		String servletContextName = portletContext.getPortletContextName();
-
-		String resourcePath = servletContextName.concat(
-			TemplateConstants.SERVLET_SEPARATOR).concat(path);
-
-		boolean resourceExists = false;
+		//TODO check if templatePath contains soy templates
 
 		try {
-			resourceExists = TemplateResourceLoaderUtil.hasTemplateResource(
-				TemplateConstants.LANG_TYPE_SOY, resourcePath);
-		}
-		catch (TemplateException te) {
-			throw new IOException(te);
-		}
 
-		if (!resourceExists) {
-			_log.error(path + " is not a valid include");
-		}
+			List<TemplateResource> templateResources =
+				_getTemplateResources(templatePath);
+
+			Template template = TemplateManagerUtil.getTemplates(
+				TemplateConstants.LANG_TYPE_SOY, templateResources, false);
 
 
-		else {
-			try {
+			template.put(TemplateConstants.NAMESPACE, namespace);
 
-				//TODO: accept custom path coming form outside
-				List<TemplateResource> templateResources =
-					_getTemplateResources(TEMPLATE_SET_FILE);
+			//TODO add useful data
 
-				TemplateManager templateManager =
-					TemplateManagerUtil.getTemplateManager(
-						TemplateConstants.LANG_TYPE_SOY);
+			Writer writer = null;
 
-				Template template = TemplateManagerUtil.getTemplates(
-					TemplateConstants.LANG_TYPE_SOY, templateResources, false);
+			if (portletResponse instanceof MimeResponse) {
+				MimeResponse mimeResponse = (MimeResponse) portletResponse;
 
-				templateManager.addTaglibApplication(
-					template, "Application", getServletContext());
-
-				templateManager.addTaglibRequest(
-					template, "Request",
-					PortalUtil.getHttpServletRequest(portletRequest),
-					PortalUtil.getHttpServletResponse(portletResponse));
-
-				template.put("portletContext", getPortletContext());
-				template.put(
-					"userInfo",
-					portletRequest.getAttribute(PortletRequest.USER_INFO));
-
-				Writer writer = null;
-
-				if (portletResponse instanceof MimeResponse) {
-					MimeResponse mimeResponse = (MimeResponse)portletResponse;
-
-					writer = UnsyncPrintWriterPool.borrow(
-						mimeResponse.getWriter());
-				}
-				else {
-					writer = new UnsyncStringWriter();
-				}
-
-				template.processTemplate(writer);
+				writer = UnsyncPrintWriterPool.borrow(
+					mimeResponse.getWriter());
+			} else {
+				writer = new UnsyncStringWriter();
 			}
-			catch (Exception e) {
-				throw new PortletException(e);
-			}
+
+			template.processTemplate(writer);
+		} catch (Exception e) {
+			throw new PortletException(e);
 		}
 
 		if (clearRequestParameters) {
@@ -147,7 +108,7 @@ public class SoyPortlet extends MVCPortlet{
 
 		long bundleId = context.getBundle().getBundleId();
 
-		while (urls.hasMoreElements()){
+		while (urls.hasMoreElements()) {
 			URL url = urls.nextElement();
 
 			String templatePath = bundleId +
@@ -162,8 +123,6 @@ public class SoyPortlet extends MVCPortlet{
 		}
 		return result;
 	}
-
-	private static final String TEMPLATE_SET_FILE = "soy";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		SoyPortlet.class);
