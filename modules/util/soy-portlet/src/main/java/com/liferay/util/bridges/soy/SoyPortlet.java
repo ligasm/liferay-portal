@@ -41,7 +41,7 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
-import org.osgi.framework.BundleContext;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 /**
@@ -52,16 +52,29 @@ public class SoyPortlet extends MVCPortlet {
 	public static final String SOY_FILE_SUFFIX = "*.soy";
 
 	@Override
+	public void init() throws PortletException {
+		super.init();
+
+		_bundle = FrameworkUtil.getBundle(
+			this.getClass()).getBundleContext().getBundle();
+	}
+
+	@Override
 	protected void include(
 			String namespace, PortletRequest portletRequest,
 			PortletResponse portletResponse, String lifecycle)
 		throws IOException, PortletException {
 
 		try {
-			String path = templatePath;
+			Enumeration<URL> resources = _getResourcesFormPath(templatePath);
+
+			if (resources == null) {
+				throw new PortletException(
+					"Could not find soy template on path: " + templatePath);
+			}
 
 			List<TemplateResource> templateResources = _getTemplateResources(
-				path);
+				resources);
 
 			Template template = TemplateManagerUtil.getTemplates(
 				TemplateConstants.LANG_TYPE_SOY, templateResources, false);
@@ -92,18 +105,16 @@ public class SoyPortlet extends MVCPortlet {
 		}
 	}
 
-	private List<TemplateResource> _getTemplateResources(String path)
+	private Enumeration<URL> _getResourcesFormPath(String path) {
+		return _bundle.findEntries(path, SOY_FILE_SUFFIX, true);
+	}
+
+	private List<TemplateResource> _getTemplateResources(Enumeration<URL> urls)
 		throws TemplateException {
 
 		List<TemplateResource> result = new ArrayList<>();
 
-		BundleContext context = FrameworkUtil.getBundle(
-			this.getClass()).getBundleContext();
-
-		Enumeration<URL> urls =
-			context.getBundle().findEntries(path, SOY_FILE_SUFFIX, true);
-
-		long bundleId = context.getBundle().getBundleId();
+		long bundleId = _bundle.getBundleId();
 
 		while (urls.hasMoreElements()) {
 			URL url = urls.nextElement();
@@ -122,4 +133,7 @@ public class SoyPortlet extends MVCPortlet {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(SoyPortlet.class);
+
+	private Bundle _bundle;
+
 }
