@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -78,6 +79,15 @@ public class SoyPortlet extends MVCPortlet {
 		renderRequest.setAttribute(WebKeys.TEMPLATE, template);
 
 		super.render(renderRequest, renderResponse);
+	}
+
+	protected void addRenderAttribute(String key, Object value) {
+		if (value == null || _isSupportedType(value)){
+			template.put(key, value);
+		}else {
+			throw new IllegalArgumentException(
+				"Provided value with key "+key +" is not supported");
+		}
 	}
 
 	protected Set<String> getJavaScriptRequiredModules(String path) {
@@ -173,6 +183,12 @@ public class SoyPortlet extends MVCPortlet {
 		return TemplateManagerUtil.getTemplate(
 			TemplateConstants.LANG_TYPE_SOY,
 			soyTemplateResourcesCollector.getTemplateResources(), false);
+	}
+
+	private boolean _isSupportedType(Object value){
+		return value instanceof Boolean || value instanceof Integer ||
+			value instanceof Float || value instanceof String ||
+			value instanceof List || value instanceof Map;
 	}
 
 	private Bundle _bundle;
