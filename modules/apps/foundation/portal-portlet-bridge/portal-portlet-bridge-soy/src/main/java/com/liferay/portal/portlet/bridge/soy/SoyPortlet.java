@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateManagerUtil;
+import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnsyncPrintWriterPool;
@@ -59,16 +60,22 @@ public class SoyPortlet extends MVCPortlet {
 		propagateRequestParameters = GetterUtil.getBoolean(
 			getInitParameter("propagate-request-parameters"), true);
 
-		_bundle = FrameworkUtil.getBundle(this.getClass());
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 
 		try {
-			_soyPortletHelper = new SoyPortletHelper(_bundle);
+			_soyPortletHelper = new SoyPortletHelper(bundle);
 
-			template = _getTemplate();
+			_templateResources = _getTemplateResources(bundle);
 		}
 		catch (Exception e) {
 			throw new PortletException(e);
 		}
+	}
+
+	public void doRender(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws PortletException {
+
 	}
 
 	@Override
@@ -76,13 +83,19 @@ public class SoyPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(WebKeys.TEMPLATE, template);
+		renderRequest.setAttribute(WebKeys.TEMPLATE, _createTemplate());
+
+		doRender(renderRequest, renderResponse);
 
 		super.render(renderRequest, renderResponse);
 	}
 
-	protected void addRenderAttribute(String key, Object value) {
-		if (value == null || _isSupportedType(value)){
+	protected void addRenderAttribute(RenderRequest request, String key,
+	Object value) {
+
+		Template template = getTemplate(request);
+
+		if (value == null || _isSupportedType(value)) {
 			template.put(key, value);
 		}else {
 			throw new IllegalArgumentException(
@@ -92,6 +105,18 @@ public class SoyPortlet extends MVCPortlet {
 
 	protected Set<String> getJavaScriptRequiredModules(String path) {
 		return Collections.emptySet();
+	}
+
+	protected Template getTemplate(PortletRequest request) {
+		Template template = (Template) request.getAttribute(WebKeys.TEMPLATE);
+
+		if(template == null){
+			throw new IllegalStateException(
+				"Template was not set for request. " +
+				"Don't overrider render method");
+		}
+
+		return template;
 	}
 
 	@Override
@@ -107,12 +132,14 @@ public class SoyPortlet extends MVCPortlet {
 				path = namespace;
 			}
 
+			Template template = getTemplate(portletRequest);
+
 			template.put(
 				TemplateConstants.NAMESPACE,
 				_soyPortletHelper.getTemplateNamespace(path));
 
 			if (propagateRequestParameters) {
-				propagateRequestParameters(portletRequest);
+				propagateRequestParameters(portletRequest, template);
 			}
 
 			Writer writer = null;
@@ -157,7 +184,9 @@ public class SoyPortlet extends MVCPortlet {
 		template.put("id", portletComponentId);
 	}
 
-	protected void propagateRequestParameters(PortletRequest portletRequest) {
+	protected void propagateRequestParameters(PortletRequest portletRequest,
+		Template template) {
+
 		Map<String, String[]> parametersMap = portletRequest.getParameterMap();
 
 		for (Map.Entry<String, String[]> entry : parametersMap.entrySet()) {
@@ -174,24 +203,34 @@ public class SoyPortlet extends MVCPortlet {
 	}
 
 	protected boolean propagateRequestParameters;
-	protected Template template;
 
-	private Template _getTemplate() throws TemplateException {
-		SoyTemplateResourcesCollector soyTemplateResourcesCollector =
-			new SoyTemplateResourcesCollector(_bundle, templatePath);
+	private Template _createTemplate() throws PortletException {
 
-		return TemplateManagerUtil.getTemplate(
-			TemplateConstants.LANG_TYPE_SOY,
-			soyTemplateResourcesCollector.getTemplateResources(), false);
+		try {
+			return TemplateManagerUtil.getTemplate(
+				TemplateConstants.LANG_TYPE_SOY, _templateResources, false);
+		}
+		catch (TemplateException te) {
+			throw new PortletException(te);
+		}
 	}
 
-	private boolean _isSupportedType(Object value){
+	private List<TemplateResource> _getTemplateResources(Bundle bundle)
+		throws TemplateException {
+
+		SoyTemplateResourcesCollector soyTemplateResourcesCollector =
+			new SoyTemplateResourcesCollector(bundle, templatePath);
+
+		return soyTemplateResourcesCollector.getTemplateResources();
+	}
+
+	private boolean _isSupportedType(Object value) {
 		return value instanceof Boolean || value instanceof Integer ||
 			value instanceof Float || value instanceof String ||
 			value instanceof List || value instanceof Map;
 	}
 
-	private Bundle _bundle;
+	private List<TemplateResource> _templateResources;
 	private SoyPortletHelper _soyPortletHelper;
 
 }
