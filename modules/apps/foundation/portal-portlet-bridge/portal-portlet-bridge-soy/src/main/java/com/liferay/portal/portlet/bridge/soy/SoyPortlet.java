@@ -91,16 +91,11 @@ public class SoyPortlet extends MVCPortlet {
 	}
 
 	protected void addRenderAttribute(RenderRequest request, String key,
-	Object value) {
+			Object value) {
 
 		Template template = getTemplate(request);
 
-		if (value == null || _isSupportedType(value)) {
-			template.put(key, value);
-		}else {
-			throw new IllegalArgumentException(
-				"Provided value with key "+key +" is not supported");
-		}
+		template.put(key, value);
 	}
 
 	protected Set<String> getJavaScriptRequiredModules(String path) {
@@ -222,12 +217,6 @@ public class SoyPortlet extends MVCPortlet {
 			new SoyTemplateResourcesCollector(bundle, templatePath);
 
 		return soyTemplateResourcesCollector.getTemplateResources();
-	}
-
-	private boolean _isSupportedType(Object value) {
-		return value instanceof Boolean || value instanceof Integer ||
-			value instanceof Float || value instanceof String ||
-			value instanceof List || value instanceof Map;
 	}
 
 	private List<TemplateResource> _templateResources;
